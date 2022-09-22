@@ -19,21 +19,33 @@
         $pass = $_GET["pass"];
 
         // Validation of User datas
-        for($i=0;$i<count($usuario);$i++) {
-            $u = explode(";",$usuario[$i]);
-            if($u[0] == $user && $u[1] == $pass) {
-                $_SESSION["user"] = $u[0];
-                $_SESSION["rol"] = $u[2];
-                $validation = True;
-                header("location: home.php");
-                break;
+        if(!empty($user) && !empty($pass)){
+            for($i=0;$i<count($usuario);$i++) {
+                $u = explode(";",$usuario[$i]);
+                if($u[0] == $user && $u[1] == $pass) {
+                    $_SESSION["user"] = $u[0];
+                    $_SESSION["rol"] = $u[2];
+                    $validation = True;
+                    header("location: home.php");
+                    break;
+                }
             }
+            if (empty($validation)) {
+                echo"
+                <script>
+                    window.alert('Bruh, Something in your data is wrong');
+                    window.history.back();
+                </script>
+                ";
+            }
+        }else{
+        echo"
+        <script>
+            window.alert('Complete all the fields');
+            window.history.back();
+        </script>
+        ";
         }
-        // echo"
-        // <script>
-        //     window.alert('Bruh, Something in your data is wrong');
-        // </script>
-        // ";
     }
 
 ?>
